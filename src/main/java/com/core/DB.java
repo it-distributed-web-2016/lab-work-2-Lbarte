@@ -22,13 +22,11 @@ public class DB {
 	private static final String PASS = "SdS9l3PQ7VBUadtWrRagSlCG-B";
 	private String sql = "";
 	private ArrayList<ArrayList<String>> dataLists = new ArrayList<ArrayList<String>>();
-	private Writer write = new Writer();
 	
 	/**
 	* Used to connect with db when sql updates data
 	*/
 	private synchronized void connection() {
-		write.logData("Connect to DB");
 		Connection conntn = null;
 		Statement sttmnt = null;
 		try {
@@ -37,20 +35,16 @@ public class DB {
 			sttmnt.executeUpdate(sql);
 			sttmnt.close();
 			conntn.close();
-			write.logData("Connection success with sql: " + sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
-			write.logData("Connection broke with SQLException: " + se);
 		} catch (Exception e) {
 			e.printStackTrace();
-			write.logData("Connection broke with Exception: " + e);
 		} finally {
 			try {
 				if (sttmnt != null) sttmnt.close();
 				if (conntn != null) conntn.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
-				write.logData("Connection closing broke with SQLException: " + se);
 			}
 		}
 	}
@@ -62,7 +56,6 @@ public class DB {
 		sql = "INSERT INTO Measurement (id, number, measured_data, time, latitude, longitude) VALUES ('";
 		sql += String.valueOf(id) + "', '" + number + "', '" + String.valueOf(measuredData)
 			+ "', '" + latitude + "', '" + longitude + "');";
-		write.logData("INSERT code formed with id " + Integer.toString(id));
 		connection();
 	}
 	
@@ -76,7 +69,6 @@ public class DB {
 		sql += number + "', '" + String.valueOf(measuredData) + "', '"
 				+ String.valueOf(new Timestamp(date.getTime()))
 			+ "', '" + latitude + "', '" + longitude + "');";
-		write.logData("INSERT code formed with data: " + number + ", " + measuredData + ", " + latitude + ", " + longitude);
 		connection();
 	}
 	
@@ -85,9 +77,7 @@ public class DB {
 	* @return data from DB
 	*/
 	protected ArrayList<ArrayList<String>> getDataFromDB() {
-		//dataLists.clear();
 		sql = "SELECT * FROM Measurement;";
-		write.logData("SELECT ALL code formed");
 		getDataFromDBConnection();
 		return dataLists;
 	}
@@ -100,7 +90,6 @@ public class DB {
 	protected ArrayList<ArrayList<String>> getDataFromDB(String id) {
 		dataLists.clear();
 		sql = "SELECT * FROM Measurement WHERE id=" + id + ";";
-		write.logData("SELECT WHERE id=" + id + " formed");
 		getDataFromDBConnection();
 		return dataLists;
 	}
@@ -118,20 +107,16 @@ public class DB {
 			fillData(sttmnt.executeQuery(sql));
 			sttmnt.close();
 			conntn.close();
-			write.logData("Connection success with sql: " + sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
-			write.logData("Connection broke with SQLException: " + se);
 		} catch (Exception e) {
 			e.printStackTrace();
-			write.logData("Connection broke with Exception: " + e);
 		} finally {
 			try {
 				if (sttmnt != null) sttmnt.close();
 				if (conntn != null) conntn.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
-				write.logData("Connection closing broke with SQLException: " + se);
 			}
 		}
 	}
@@ -160,7 +145,6 @@ public class DB {
 	 */
 	protected void deleteAllData() {
 		sql = "Delete from measurement;";
-		write.logData("DELETE ALL code formed");
 		connection();
 	}
 }
