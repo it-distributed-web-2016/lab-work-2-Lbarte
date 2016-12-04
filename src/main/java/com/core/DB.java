@@ -16,10 +16,10 @@ import java.util.ArrayList;
 */
 public class DB {
 
-	private static final String JDBC_DRIVER = "org.postgresql.Driver";
-	private static final String DB_URL = "jdbc:postgresql://ec2-54-225-246-33.compute-1.amazonaws.com:5432/ddts25mpqtahek";
-	private static final String USER = "sbadmpkdcfdlez";
-	private static final String PASS = "SdS9l3PQ7VBUadtWrRagSlCG-B";
+	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	private static final String DB_URL = "jdbc:mysql://localhost/Measurement";
+	private static final String USER = "root";
+	private static final String PASS = "1111";
 	private String sql = "";
 	private ArrayList<ArrayList<String>> dataLists = new ArrayList<ArrayList<String>>();
 	
